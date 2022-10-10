@@ -126,62 +126,53 @@
 <br>
 <!--Part 4: Making the game operational. -->
 <script>
-    const ids = ["chest0", "chest1", "chest2", "chest3", "chest4", "chest5", "chest6", "chest7", "chest8", "chest9", 
-    "chest10", "chest11", "help", "chest13", "chest14", "chest15", "chest16", "chest17", "chest18", "chest19", "chest20",
-    "chest21", "chest22", "chest23", "chest24"]
+    const ids = ["chest0", "chest1", "chest2", "chest3", "chest4", "chest5", "chest6", "chest7",
+    "chest8", "chest9", "chest10", "chest11", "help", "chest13", "chest14", "chest15", "chest16",
+    "chest17", "chest18", "chest19", "chest20", "chest21", "chest22", "chest23", "chest24"]
     let chestCount = 0
     let score = 0
     let lastCheck = 12
     let treasureLocation = 18
 
     function check(position) {
-        if (position == treasureLocation) {
-            document.getElementById(ids[position]).src = "Treasure.jpg"
-            chestCount += 1
-            score += 1
-            document.getElementById("chests").innerHTML = "Number of chests checked is " + chestCount
-            document.getElementById("score").innerHTML = "Score is " + score
-            lastCheck = position
+        image = document.getElementById(ids[position])
+        if(position == treasureLocation) {
+            image.src = "Treasure.jpg"
+        } else {
+            image.src = "Empty Chest.png"
         }
-        else {
-            document.getElementById(ids[position]).src = "Empty Chest.png"
-            chestCount += 1
-            document.getElementById("chests").innerHTML = "Number of chests checked is " + chestCount
-            lastCheck = position
-
-        }
+        chestCount += 1
+        score += 1 
+        document.getElementById("chests").innerHTML = "Number of chests checked is " +chestCount;
+        document.getElementById("score").innerHTML = "Score is " + score
+        lastCheck = position;
     }
 
     function help() {
-        rowCheck = lastCheck / 5
-        columnCheck = lastCheck % 5
-        Treasurerow = treasureLocation / 5
-        Treasurecolumn = treasureLocation % 5
+        lastCheck_row = parseInt(lastCheck / 5)
+        lastCheck_column = parseInt(lastCheck % 5)
+        treasureLocation_row = parseInt(treasureLocation / 5)
+        treasureLocation_column = parseInt(treasureLocation % 5)
         score += 2
-        document.getElementById("score").innerHTML = "Score is " + columnCheck
-
-        if (rowCheck < Treasurerow && rowCheck >= 3) {
-            document.getElementById("help").innerHTML = "Treasure is right"
-        }
-
-        else if (rowCheck > Treasurerow && rowCheck < 4) {
-            document.getElementById("help").innerHTML = "Treasure is left"
-        }
-
-        else if (columnCheck == 3 && rowCheck < 3) {
-            document.getElementById("help").innerHTML = "Treasure is down"
-        }
-
-        else if (columnCheck == 3 && rowCheck > 4) {
-            document.getElementById("help").innerHTML = "Treasure is up"
-        }
-
-        else if (lastCheck == 18) {
-            document.getElementById("help").innerHTML = "Sorry, no help available."
-        }
-
-        else {
-            document.getElementById("help").innerHTML = "Sorry, no help available."
+        document.getElementById("score").innerHTML = "Score is " + score
+        if(lastCheck_row == treasureLocation_row) {
+            if(lastCheck_column < treasureLocation_column) {
+                document.getElementById("help").innerHTML = "Left"
+            } else if(lastCheck_column > treasureLocation_column) {
+                document.getElementById("help").innerHTML = "Right"
+            } else {
+                document.getElementById("help").innerHTML = "Sorry, no help available"
+            }
+        } else if(lastCheck_column == treasureLocation_column) {
+            if(lastCheck_row < treasureLocation_row) {
+                document.getElementById("help").innerHTML = "Down"
+            } else if(lastCheck_row > treasureLocation_row) {
+                document.getElementById("help").innerHTML = "Up"
+            } else {
+                document.getElementById("help").innerHTML = "Sorry, no help available"
+            }
+        } else {
+            document.getElementById("help").innerHTML = "Sorry, no help available"
         }
     }
 </script>
