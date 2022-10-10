@@ -157,9 +157,9 @@
         document.getElementById("score").innerHTML = "Score is " + score
         if(lastCheck_row == treasureLocation_row) {
             if(lastCheck_column < treasureLocation_column) {
-                document.getElementById("help").innerHTML = "Left"
-            } else if(lastCheck_column > treasureLocation_column) {
                 document.getElementById("help").innerHTML = "Right"
+            } else if(lastCheck_column > treasureLocation_column) {
+                document.getElementById("help").innerHTML = "Left"
             } else {
                 document.getElementById("help").innerHTML = "Sorry, no help available"
             }
